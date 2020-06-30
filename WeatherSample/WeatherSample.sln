@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSample", "WeatherSample.csproj", "{9716F8DB-1870-4879-849C-B35FCEB63554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSample.Entities", "..\WeatherSample.Entities\WeatherSample.Entities.csproj", "{9F560809-4EF7-4649-90E1-4E2B370EE148}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSample.Helpers", "..\WeatherSample.Helpers\WeatherSample.Helpers.csproj", "{3EDE92FD-D1BE-40C7-8227-67389A73E631}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherSample.Dal.Abstract", "..\WeatherSample.Dal.Abstract\WeatherSample.Dal.Abstract.csproj", "{AF0E2AEF-6B01-4B39-9F66-F51B6ABDD133}"
@@ -25,10 +23,6 @@ Global
 		{9716F8DB-1870-4879-849C-B35FCEB63554}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9716F8DB-1870-4879-849C-B35FCEB63554}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9716F8DB-1870-4879-849C-B35FCEB63554}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F560809-4EF7-4649-90E1-4E2B370EE148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F560809-4EF7-4649-90E1-4E2B370EE148}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F560809-4EF7-4649-90E1-4E2B370EE148}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F560809-4EF7-4649-90E1-4E2B370EE148}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EDE92FD-D1BE-40C7-8227-67389A73E631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3EDE92FD-D1BE-40C7-8227-67389A73E631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EDE92FD-D1BE-40C7-8227-67389A73E631}.Release|Any CPU.ActiveCfg = Release|Any CPU
