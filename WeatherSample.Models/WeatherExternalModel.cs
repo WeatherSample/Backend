@@ -5,6 +5,10 @@ using Newtonsoft.Json.Converters;
 
 namespace WeatherSample.Models
 {
+    /// <summary>
+    /// Services for parsing json data from weather service,
+    /// https://www.weatherbit.io/.
+    /// </summary>
     public static class WeatherExternalModel
     {
         public static Weathers FromJson(
