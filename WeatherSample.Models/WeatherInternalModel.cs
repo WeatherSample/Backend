@@ -2,7 +2,11 @@
 
 namespace WeatherSample.Models
 {
-    public class WeatherModel
+    /// <summary>
+    /// This model uses when client request weather
+    /// from get-type request.
+    /// </summary>
+    public class WeatherInternalModel
     {
         public DateTime Date { get; set; }
         public string Type { get; set; } = null!;
