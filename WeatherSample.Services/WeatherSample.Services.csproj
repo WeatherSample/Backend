@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WeatherSample.Dal.Abstract\WeatherSample.Dal.Abstract.csproj" />
+      <ProjectReference Include="..\WeatherSample.DataProvider\WeatherSample.DataProvider.csproj" />
+      <ProjectReference Include="..\WeatherSample.Utils\WeatherSample.Utils.csproj" />
+    </ItemGroup>
+
+</Project>

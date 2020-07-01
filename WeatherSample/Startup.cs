@@ -1,27 +1,45 @@
+using LinqToDB.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Serilog;
+using WeatherSample.Dal.Abstract;
+using WeatherSample.Dal.Abstract.Base;
+using WeatherSample.Dal.Impl.MySql.Connection;
+using WeatherSample.Dal.Impl.MySql.Repository;
+using WeatherSample.DataProvider;
+using WeatherSample.Services;
+using WeatherSample.Utils.Converters;
 
 namespace WeatherSample
 {
     public class Startup
     {
+        public readonly IConfiguration Configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Logger.Logger.ConfigureLogger();
+            Secrets.ConfigureSecrets(configuration);
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging(builder => builder.AddConsole().AddSerilog());
             services.AddControllers();
+
+            services.AddSingleton<ExternalModelToWeatherEntity>();
+            services.AddSingleton<WeatherEntityToInternalModel>();
+            services.AddSingleton<WeatherDataFetchService>();
+            services.AddSingleton(
+                provider => new WeatherExternalApiService(Secrets.WeatherServiceToken)
+            );
+
+            services.AddTransient<IWeatherRepository, WeatherRepository>();
+            services.AddTransient<ILinqToDBSettings, ConnectionSettings>(provider =>
+                new ConnectionSettings(Secrets.ConnectionString)
+            );
+            services.AddTransient<IDatabaseConnection, DatabaseConnection>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -29,8 +47,8 @@ namespace WeatherSample
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.ApplicationServices.GetService<IDatabaseConnection>().ConfigureConnection();
         }
     }
 }
