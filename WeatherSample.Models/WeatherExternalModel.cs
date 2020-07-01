@@ -5,13 +5,13 @@ namespace WeatherSample.Models
 {
     public class Weathers
     {
-        [JsonProperty("data")] public List<WeatherBase> Data { get; set; }
-        [JsonProperty("city_name")] public string CityName { get; set; }
+        [JsonProperty("data")] public List<WeatherBase> Data { get; set; } = null!;
+        [JsonProperty("city_name")] public string CityName { get; set; } = null!;
     }
 
     public class WeatherBase
     {
-        [JsonProperty("weather")] public Weather Weather { get; set; }
+        [JsonProperty("weather")] public Weather Weather { get; set; } = null!;
         [JsonProperty("uv")] public double Uv { get; set; }
         [JsonProperty("precip")] public double Precip { get; set; }
         [JsonProperty("app_temp")] public double AppTemp { get; set; }
@@ -20,6 +20,6 @@ namespace WeatherSample.Models
 
     public class Weather
     {
-        [JsonProperty("description")] public string Description { get; set; }
+        [JsonProperty("description")] public string Description { get; set; } = null!;
     }
 }
