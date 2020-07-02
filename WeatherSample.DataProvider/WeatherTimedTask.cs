@@ -8,6 +8,14 @@ using WeatherSample.Utils.Converters;
 
 namespace WeatherSample.DataProvider
 {
+    /// <summary>
+    /// Class includes logic for updating cached cities in
+    /// database at background as service.
+    ///
+    /// Just in task you said "save in data base results",
+    /// but idk for what? I think just saving results useless,
+    /// and I maded it, for using cached results.
+    /// </summary>
     public class WeatherTimedTask : IHostedService, IDisposable
     {
         private Timer _timer = null!;
@@ -47,11 +55,12 @@ namespace WeatherSample.DataProvider
 
         private async void Action(object state)
         {
-            var cached = await _repository.GetCachedCities();
+            var cached = await _repository.GetSavedCities();
             foreach (var city in cached)
             {
                 var updated = await _service.FetchCity(city.CityName);
-                await _repository.Replace(_externalToEntity.Convert(updated));
+                var external = _externalToEntity.Convert(updated);
+                if (external != null) await _repository.ReplaceAsync(external);
             }
         }
 

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using WeatherSample.Dal.Abstract;
 using WeatherSample.Dal.Abstract.Base;
 using WeatherSample.Dal.Impl.MySql.Connection;
-using WeatherSample.Dal.Impl.MySql.Repository;
+using WeatherSample.Dal.Impl.MySql.Repository.linq2db;
 using WeatherSample.DataProvider;
 using WeatherSample.Services;
 using WeatherSample.Utils.Converters;
@@ -31,8 +31,8 @@ namespace WeatherSample
             services.AddSingleton<ExternalModelToWeatherEntity>();
             services.AddSingleton<WeatherEntityToInternalModel>();
             services.AddSingleton<WeatherDataFetchService>();
-            services.AddSingleton(
-                provider => new WeatherExternalApiService(Secrets.WeatherServiceToken)
+            services.AddSingleton(provider =>
+                new WeatherExternalApiService(Secrets.WeatherServiceToken)
             );
 
             services.AddTransient<IWeatherRepository, WeatherRepository>();
@@ -40,6 +40,7 @@ namespace WeatherSample
                 new ConnectionSettings(Secrets.ConnectionString)
             );
             services.AddTransient<IDatabaseConnection, DatabaseConnection>();
+            services.AddHostedService<WeatherTimedTask>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
