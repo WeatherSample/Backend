@@ -14,8 +14,6 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db
         {
         }
 
-        public ITable<Forecast> ForecastTable => GetTable<Forecast>();
-
         public async Task<List<CityEntity>> GetSavedCities() => await GetAllAsync();
 
         public override async Task<CityEntity?> GetByIdAsync(string id) =>
