@@ -1,10 +1,10 @@
-create schema if not exists forecast collate utf8mb4_bin;
+create schema if not exists forecast collate utf8_general_ci;
 
 use forecast;
 create table if not exists cities
 (
     id       int auto_increment primary key,
-    CityName varchar(255) not null
+    CityName varchar(255) unique not null
 ) engine = INNODB;
 
 create table forecast
