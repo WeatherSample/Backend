@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Data;
@@ -11,6 +10,10 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db
 {
     public class WeatherRepository : GenericKeyRepository<string, CityEntity>, IWeatherRepository
     {
+        public WeatherRepository() : base("WeatherData")
+        {
+        }
+
         public ITable<Forecast> ForecastTable => GetTable<Forecast>();
 
         public async Task<List<CityEntity>> GetSavedCities() => await GetAllAsync();
@@ -60,26 +63,6 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db
                     await db.RollbackTransactionAsync();
                     throw;
                 }
-            }
-        }
-
-        public WeatherRepository() : base("WeatherData")
-        {
-            using (var db = new DataConnection())
-            {
-                var sp = DataProvider.GetSchemaProvider();
-                var dbSchema = sp.GetSchema(db);
-                if (
-                    !dbSchema.Tables.Any(
-                        t => t.TableName != "cities"
-                    )
-                ) db.CreateTable<CityEntity>();
-
-                if (
-                    !dbSchema.Tables.Any(
-                        t => t.TableName == "forecast"
-                    )
-                ) db.CreateTable<Forecast>();
             }
         }
     }
