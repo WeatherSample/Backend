@@ -12,8 +12,9 @@ namespace WeatherSample.Utils.Converters
         /// </summary>
         /// <param name="external">External City data class to convert.</param>
         /// <returns>CityEntity class instance.</returns>
-        public CityEntity? Convert(City external)
+        public CityEntity? Convert(City? external)
         {
+            if (external == null) return null;
             var entity = new CityEntity {CityName = external.CityName};
             foreach (var forecast in external.Data)
             {

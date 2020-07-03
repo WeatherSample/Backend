@@ -18,12 +18,10 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db
 
         public async Task<List<CityEntity>> GetSavedCities() => await GetAllAsync();
 
-        public override async Task<CityEntity?> GetByIdAsync(string id)
-        {
-            return await EntityTableContext
+        public override async Task<CityEntity?> GetByIdAsync(string id) =>
+            await EntityTableContext
                 .LoadWith(entity => entity.Data)
                 .FirstOrDefaultAsync(entity => entity.CityName == id);
-        }
 
         public override async Task<List<CityEntity>> GetAllAsync() =>
             await EntityTableContext.LoadWith(entity => entity.Data).ToListAsync();
@@ -48,9 +46,6 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db
                 try
                 {
                     await db.BeginTransactionAsync();
-                    await ForecastTable.DeleteAsync(
-                        forecast => forecast.CityName == entity.CityName
-                    );
                     await EntityTableContext.DeleteAsync(
                         cityEntity => cityEntity.CityName == entity.CityName
                     );
