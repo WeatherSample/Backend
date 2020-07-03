@@ -5,6 +5,12 @@ namespace WeatherSample.Utils.Converters
 {
     public class WeatherEntityToInternalModel
     {
+        /// <summary>
+        /// Converts entity to internal model (model of response
+        /// to clients).
+        /// </summary>
+        /// <param name="entity">Entity class to convert.</param>
+        /// <returns>WeatherInternalModel.City data class instance.</returns>
         public WeatherInternalModel.City? Convert(CityEntity? entity)
         {
             if (entity == null) return null;
@@ -13,15 +19,12 @@ namespace WeatherSample.Utils.Converters
             {
                 weathers.Data.Add(new WeatherInternalModel.Forecast
                     {
-                        Datetime = forecast.Datetime,
+                        LocalTime = forecast.LocalTime,
                         Precip = forecast.Precip,
                         Temp = forecast.Temp,
                         Uv = forecast.Uv,
                         AppTemp = forecast.AppTemp,
-                        ForecastMeta = new WeatherInternalModel.ForecastMeta
-                        {
-                            Description = forecast.ForecastMeta.Description
-                        }
+                        Description = forecast.Description
                     }
                 );
             }

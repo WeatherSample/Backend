@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Data;
@@ -12,11 +11,8 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db.Base
     {
         public ITable<TEntity> EntityTableContext => GetTable<TEntity>();
 
-        protected GenericKeyRepository()
+        protected GenericKeyRepository(string configuration) : base(configuration)
         {
-            TurnTraceSwitchOn();
-            WriteTraceLine = (s, s1) => Console.Out.WriteLine(s, s1);
-            EntityTableContext.DataContext.CreateTable<TEntity>();
         }
 
         public virtual async Task<List<TEntity>> GetAllAsync() =>
@@ -27,7 +23,7 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db.Base
         public virtual async Task<TEntity?> AddAsync(TEntity? entity)
         {
             if (entity == null) return null;
-            await EntityTableContext.InsertAsync(() => entity);
+            await EntityTableContext.DataContext.InsertAsync(entity);
             return entity;
         }
 

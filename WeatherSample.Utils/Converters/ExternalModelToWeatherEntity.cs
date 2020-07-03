@@ -1,29 +1,31 @@
 ﻿using WeatherSample.Entities;
 using WeatherSample.Models;
 using Forecast = WeatherSample.Entities.Forecast;
-using ForecastMeta = WeatherSample.Entities.ForecastMeta;
 
 namespace WeatherSample.Utils.Converters
 {
     public class ExternalModelToWeatherEntity
     {
-        public CityEntity? Convert(City? external)
+        /// <summary>
+        /// Converts External (Weather API) model to weather
+        /// entity model with the same data.
+        /// </summary>
+        /// <param name="external">External City data class to convert.</param>
+        /// <returns>CityEntity class instance.</returns>
+        public CityEntity? Convert(City external)
         {
-            if (external == null) return null;
             var entity = new CityEntity {CityName = external.CityName};
             foreach (var forecast in external.Data)
             {
-                entity.Data.Add(new Forecast
+                entity.Data.Add(
+                    new Forecast
                     {
-                        Datetime = forecast.Datetime,
+                        LocalTime = forecast.TimestampLocal,
                         Precip = forecast.Precip,
                         Temp = forecast.Temp,
                         Uv = forecast.Uv,
                         AppTemp = forecast.AppTemp,
-                        ForecastMeta = new ForecastMeta
-                        {
-                            Description = forecast.ForecastMeta.Description
-                        }
+                        Description = forecast.Weather.Description
                     }
                 );
             }

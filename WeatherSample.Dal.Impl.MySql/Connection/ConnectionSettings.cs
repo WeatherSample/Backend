@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LinqToDB.Configuration;
+using LinqToDB.DataProvider.MySql;
 
 namespace WeatherSample.Dal.Impl.MySql.Connection
 {
@@ -8,7 +9,7 @@ namespace WeatherSample.Dal.Impl.MySql.Connection
     {
         public string ConnectionString { get; set; } = null!;
         public string Name { get; set; } = "WeatherData";
-        public string ProviderName { get; set; } = "MySQL";
+        public string ProviderName { get; set; } = MySqlTools.DetectedProviderName;
         public bool IsGlobal => false;
     }
 
@@ -29,7 +30,7 @@ namespace WeatherSample.Dal.Impl.MySql.Connection
             }
         }
 
-        public string DefaultConfiguration => "MySql";
-        public string DefaultDataProvider => "MySql";
+        public string DefaultConfiguration => MySqlTools.DetectedProviderName;
+        public string DefaultDataProvider => MySqlTools.DetectedProviderName;
     }
 }

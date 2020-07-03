@@ -17,11 +17,17 @@ namespace WeatherSample
     public class Startup
     {
         public readonly IConfiguration Configuration;
+        public readonly DatabaseConnection DbConnection;
 
         public Startup(IConfiguration configuration)
         {
+            LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
             Secrets.ConfigureSecrets(configuration);
+            DbConnection = new DatabaseConnection(
+                new ConnectionSettings(Secrets.ConnectionString)
+            );
             Configuration = configuration;
+            DbConnection.ConfigureConnection();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -36,10 +42,12 @@ namespace WeatherSample
             );
 
             services.AddTransient<IWeatherRepository, WeatherRepository>();
-            services.AddTransient<ILinqToDBSettings, ConnectionSettings>(provider =>
-                new ConnectionSettings(Secrets.ConnectionString)
+            services.AddTransient<ILinqToDBSettings, ConnectionSettings>(
+                provider => new ConnectionSettings(Secrets.ConnectionString)
             );
-            services.AddTransient<IDatabaseConnection, DatabaseConnection>();
+            services.AddTransient<IDatabaseConnection, DatabaseConnection>(
+                provider => DbConnection
+            );
             services.AddHostedService<WeatherTimedTask>();
         }
 
@@ -49,7 +57,6 @@ namespace WeatherSample
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            app.ApplicationServices.GetService<IDatabaseConnection>().ConfigureConnection();
         }
     }
 }

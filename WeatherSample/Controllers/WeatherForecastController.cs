@@ -11,7 +11,7 @@ namespace WeatherSample.Controllers
         private readonly WeatherDataFetchService _service;
         public WeatherController(WeatherDataFetchService service) => _service = service;
 
-        [HttpGet("/{city}")]
+        [HttpGet("{city}")]
         public async Task<IActionResult> ForecastOf(string city)
         {
             var result = await _service.GetByIdAsync(city);
