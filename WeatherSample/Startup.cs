@@ -1,3 +1,4 @@
+using LinqToDB.Common;
 using LinqToDB.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,17 +17,17 @@ namespace WeatherSample
 {
     public class Startup
     {
-        public readonly IConfiguration Configuration;
+        private readonly IConfiguration _configuration;
         public readonly DatabaseConnection DbConnection;
 
         public Startup(IConfiguration configuration)
         {
-            LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
+            Configuration.Linq.AllowMultipleQuery = true;
             Secrets.ConfigureSecrets(configuration);
             DbConnection = new DatabaseConnection(
                 new ConnectionSettings(Secrets.ConnectionString)
             );
-            Configuration = configuration;
+            _configuration = configuration;
             DbConnection.ConfigureConnection();
         }
 
