@@ -22,6 +22,7 @@ namespace WeatherSample.DataProvider
         {
             var request = new RestRequest()
                 .AddParameter("q", city)
+                .AddParameter("units", "metric")
                 .AddHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
                 .AddHeader("x-rapidapi-key", _token);
             var response = await WeatherApiBase.Client.ExecuteGetAsync<Temperatures>(request);
