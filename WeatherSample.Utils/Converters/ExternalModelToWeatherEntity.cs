@@ -1,6 +1,6 @@
-﻿using WeatherSample.Entities;
+﻿using System.Linq;
+using WeatherSample.Entities;
 using WeatherSample.Models;
-using Forecast = WeatherSample.Entities.Forecast;
 
 namespace WeatherSample.Utils.Converters
 {
@@ -12,21 +12,23 @@ namespace WeatherSample.Utils.Converters
         /// </summary>
         /// <param name="external">External City data class to convert.</param>
         /// <returns>CityEntity class instance.</returns>
-        public CityEntity? Convert(City? external)
+        public CityEntity Convert(WeatherApiModel.Temperatures external)
         {
-            if (external == null) return null;
-            var entity = new CityEntity {CityName = external.CityName};
-            foreach (var forecast in external.Data)
+            var entity = new CityEntity {CityName = external.City.Name};
+            foreach (var forecast in external.List)
             {
                 entity.Data.Add(
                     new Forecast
                     {
-                        LocalTime = forecast.TimestampLocal,
-                        Precip = forecast.Precip,
-                        Temp = forecast.Temp,
-                        Uv = forecast.Uv,
-                        AppTemp = forecast.AppTemp,
-                        Description = forecast.Weather.Description
+                        Description = forecast.Weather.First().Description,
+                        Humidity = forecast.Main.Humidity,
+                        Pressure = forecast.Main.Pressure,
+                        Temp = forecast.Main.Temp,
+                        FeelsLike = forecast.Main.FeelsLike,
+                        LocalTime = forecast.DtTxt,
+                        TempMax = forecast.Main.TempMax,
+                        TempMin = forecast.Main.TempMin,
+                        WindSpeed = forecast.Wind.Speed
                     }
                 );
             }

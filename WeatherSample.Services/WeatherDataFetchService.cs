@@ -45,12 +45,14 @@ namespace WeatherSample.Services
         /// <returns>
         /// Null if city not exist, otherwise WeatherInternalModel.City model.
         /// </returns>
-        public async Task<WeatherInternalModel.City?> GetByIdAsync(string id) =>
-            _entityToInternal.Convert(
+        public async Task<WeatherInternalModel.City?> GetByIdAsync(string id)
+        {
+            var data = await _external.FetchCity(id);
+            if (data == null) return null;
+            return _entityToInternal.Convert(
                 await _repository.GetByIdAsync(id) ??
-                await _repository.AddAsync(
-                    _externalToEntity.Convert(await _external.FetchCity(id))
-                )
+                await _repository.AddAsync(_externalToEntity.Convert(data))
             );
+        }
     }
 }

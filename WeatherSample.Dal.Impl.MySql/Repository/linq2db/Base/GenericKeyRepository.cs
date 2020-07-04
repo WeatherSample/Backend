@@ -20,9 +20,8 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db.Base
 
         public abstract Task<TEntity?> GetByIdAsync(TKey id);
 
-        public virtual async Task<TEntity?> AddAsync(TEntity? entity)
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
-            if (entity == null) return null;
             await EntityTableContext.DataContext.InsertAsync(entity);
             return entity;
         }

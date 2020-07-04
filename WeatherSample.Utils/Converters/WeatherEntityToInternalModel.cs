@@ -11,20 +11,22 @@ namespace WeatherSample.Utils.Converters
         /// </summary>
         /// <param name="entity">Entity class to convert.</param>
         /// <returns>WeatherInternalModel.City data class instance.</returns>
-        public WeatherInternalModel.City? Convert(CityEntity? entity)
+        public WeatherInternalModel.City Convert(CityEntity entity)
         {
-            if (entity == null) return null;
             var weathers = new WeatherInternalModel.City {CityName = entity.CityName};
             foreach (var forecast in entity.Data)
             {
-                weathers.Data.Add(new WeatherInternalModel.Forecast
+                weathers.Forecasts.Add(new WeatherInternalModel.Forecast
                     {
-                        LocalTime = forecast.LocalTime,
-                        Precip = forecast.Precip,
+                        Description = forecast.Description,
+                        Humidity = forecast.Humidity,
+                        Pressure = forecast.Pressure,
                         Temp = forecast.Temp,
-                        Uv = forecast.Uv,
-                        AppTemp = forecast.AppTemp,
-                        Description = forecast.Description
+                        FeelsLike = forecast.FeelsLike,
+                        LocalTime = forecast.LocalTime,
+                        TempMax = forecast.TempMax,
+                        TempMin = forecast.TempMin,
+                        WindSpeed = forecast.WindSpeed
                     }
                 );
             }

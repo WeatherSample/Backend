@@ -1,26 +1,54 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
+/*
+ * Generated class by https://app.quicktype.io/?l=csharp,
+ * from response of https://community-open-weather-map.p.rapidapi.com/forecast.
+ */
 namespace WeatherSample.Models
 {
-    public class City
+    public class WeatherApiModel
     {
-        [JsonProperty("data")] public List<Datum> Data { get; set; } = new List<Datum>();
-        [JsonProperty("city_name")] public string CityName { get; set; } = string.Empty;
-    }
+        public class Temperatures
+        {
+            [JsonProperty("list")] public List<List> List { get; set; } = new List<List>();
+            [JsonProperty("city")] public City City { get; set; } = null!;
+        }
 
-    public class Datum
-    {
-        [JsonProperty("weather")] public Weather Weather { get; set; } = new Weather();
-        [JsonProperty("uv")] public double Uv { get; set; }
-        [JsonProperty("precip")] public double Precip { get; set; }
-        [JsonProperty("app_temp")] public double AppTemp { get; set; }
-        [JsonProperty("temp")] public double Temp { get; set; }
-        [JsonProperty("timestamp_local")] public string TimestampLocal { get; set; } = string.Empty;
-    }
+        public class City
+        {
+            [JsonProperty("name")] public string Name { get; set; } = string.Empty;
+        }
 
-    public class Weather
-    {
-        [JsonProperty("description")] public string Description { get; set; } = string.Empty;
+        public class List
+        {
+            [JsonProperty("main")] public MainClass Main { get; set; } = null!;
+
+            [JsonProperty("weather")]
+            public List<Weather> Weather { get; set; } = new List<Weather>();
+
+            [JsonProperty("wind")] public Wind Wind { get; set; } = null!;
+            [JsonProperty("dt_txt")] public string DtTxt { get; set; } = string.Empty;
+        }
+
+        public class MainClass
+        {
+            [JsonProperty("temp")] public double Temp { get; set; }
+            [JsonProperty("feels_like")] public double FeelsLike { get; set; }
+            [JsonProperty("temp_min")] public double TempMin { get; set; }
+            [JsonProperty("temp_max")] public double TempMax { get; set; }
+            [JsonProperty("pressure")] public long Pressure { get; set; }
+            [JsonProperty("humidity")] public long Humidity { get; set; }
+        }
+
+        public class Weather
+        {
+            [JsonProperty("description")] public string Description { get; set; } = string.Empty;
+        }
+
+        public class Wind
+        {
+            [JsonProperty("speed")] public double Speed { get; set; }
+        }
     }
 }

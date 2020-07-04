@@ -23,7 +23,7 @@ namespace WeatherSample.Dal.Abstract.Base
         /// </summary>
         /// <param name="entity">entity data class instance to add.</param>
         /// <returns>If passed entity is null returns null otherwise added entity.</returns>
-        Task<TEntity?> AddAsync(TEntity? entity);
+        Task<TEntity> AddAsync(TEntity entity);
 
         /// <summary>
         /// Do replace old entity to new entity by calling function

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using RestSharp;
-using WeatherSample.Models;
+using static WeatherSample.Models.WeatherApiModel;
 
 namespace WeatherSample.DataProvider
 {
@@ -17,15 +17,14 @@ namespace WeatherSample.DataProvider
         /// </summary>
         /// <param name="city">City name to fetch.</param>
         /// <returns>Null of city not exist otherwise model based on server json in response.</returns>
-        public async Task<City?> FetchCity(string city)
+        public async Task<Temperatures?> FetchCity(string city)
         {
-            // Log.Trace($"Doing fetch forecast data of city {city}");
-            var request = new RestRequest("forecast/hourly")
-                .AddParameter("city", city)
-                .AddParameter("key", _token)
-                .AddParameter("hours", "120"); // that service anyway will return 48hrs :(
-            var response = await WeatherApiBase.Client.ExecuteGetAsync<City>(request);
-            return response.StatusCode == HttpStatusCode.NoContent ? null : response.Data;
+            var request = new RestRequest()
+                .AddParameter("q", city)
+                .AddHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
+                .AddParameter("x-rapidapi-key", _token);
+            var response = await WeatherApiBase.Client.ExecuteGetAsync<Temperatures>(request);
+            return response.StatusCode == HttpStatusCode.NotFound ? null : response.Data;
         }
     }
 }

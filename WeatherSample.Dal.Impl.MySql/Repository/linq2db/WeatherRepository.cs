@@ -24,9 +24,8 @@ namespace WeatherSample.Dal.Impl.MySql.Repository.linq2db
         public override async Task<List<CityEntity>> GetAllAsync() =>
             await EntityTableContext.LoadWith(entity => entity.Data).ToListAsync();
 
-        public override async Task<CityEntity?> AddAsync(CityEntity? entity)
+        public override async Task<CityEntity> AddAsync(CityEntity entity)
         {
-            if (entity == null) return null;
             await EntityTableContext.DataContext.InsertAsync(entity);
             foreach (var forecast in entity.Data)
             {

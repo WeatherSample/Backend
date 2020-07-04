@@ -6,9 +6,6 @@ namespace WeatherSample.Entities
     [Table(Name = "Cities")]
     public class CityEntity
     {
-        [Identity, NotNull, Column("id", IsPrimaryKey = true)]
-        public int Id { get; set; } = 0;
-
         [Column, NotNull] public string CityName { get; set; } = string.Empty;
 
         [
@@ -26,9 +23,12 @@ namespace WeatherSample.Entities
     {
         [Column, NotNull] public string CityName { get; set; } = string.Empty;
         [Column, NotNull] public string Description { get; set; } = string.Empty;
-        [Column, NotNull] public double Uv { get; set; }
-        [Column, NotNull] public double Precip { get; set; }
-        [Column, NotNull] public double AppTemp { get; set; }
+        [Column, NotNull] public double WindSpeed { get; set; }
+        [Column, NotNull] public long Humidity { get; set; }
+        [Column, NotNull] public long Pressure { get; set; }
+        [Column, NotNull] public double TempMin { get; set; }
+        [Column, NotNull] public double TempMax { get; set; }
+        [Column, NotNull] public double FeelsLike { get; set; }
         [Column, NotNull] public double Temp { get; set; }
         [Column, NotNull] public string LocalTime { get; set; } = string.Empty;
     }
