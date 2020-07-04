@@ -12,7 +12,7 @@ namespace WeatherSample.Models
         public class Temperatures
         {
             [JsonProperty("list")] public List<List> List { get; set; } = new List<List>();
-            [JsonProperty("city")] public City City { get; set; } = null!;
+            [JsonProperty("city")] public City City { get; set; } = new City();
         }
 
         public class City
@@ -22,12 +22,12 @@ namespace WeatherSample.Models
 
         public class List
         {
-            [JsonProperty("main")] public MainClass Main { get; set; } = null!;
+            [JsonProperty("main")] public MainClass Main { get; set; } = new MainClass();
 
             [JsonProperty("weather")]
             public List<Weather> Weather { get; set; } = new List<Weather>();
 
-            [JsonProperty("wind")] public Wind Wind { get; set; } = null!;
+            [JsonProperty("wind")] public Wind Wind { get; set; } = new Wind();
             [JsonProperty("dt_txt")] public string DtTxt { get; set; } = string.Empty;
         }
 

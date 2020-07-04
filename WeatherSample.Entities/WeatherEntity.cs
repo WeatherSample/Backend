@@ -6,6 +6,9 @@ namespace WeatherSample.Entities
     [Table(Name = "Cities")]
     public class CityEntity
     {
+        [Identity, NotNull, Column("id", IsPrimaryKey = true)]
+        public int Id { get; set; } = 0;
+
         [Column, NotNull] public string CityName { get; set; } = string.Empty;
 
         [
