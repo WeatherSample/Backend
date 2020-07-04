@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using RestSharp;
 using static WeatherSample.Models.WeatherApiModel;
@@ -22,7 +23,7 @@ namespace WeatherSample.DataProvider
             var request = new RestRequest()
                 .AddParameter("q", city)
                 .AddHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
-                .AddParameter("x-rapidapi-key", _token);
+                .AddHeader("x-rapidapi-key", _token);
             var response = await WeatherApiBase.Client.ExecuteGetAsync<Temperatures>(request);
             return response.StatusCode == HttpStatusCode.NotFound ? null : response.Data;
         }
