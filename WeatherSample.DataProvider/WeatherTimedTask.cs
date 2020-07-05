@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using WeatherSample.Dal.Abstract;
-using WeatherSample.Entities;
 using WeatherSample.Utils.Converters;
 
 namespace WeatherSample.DataProvider
@@ -69,7 +68,7 @@ namespace WeatherSample.DataProvider
             foreach (var city in cached)
             {
                 var updated = await _service.FetchCity(city.CityName);
-                CityEntity? external = updated == null ? null : _externalToEntity.Convert(updated);
+                var external = updated == null ? null : _externalToEntity.Convert(updated);
                 if (external != null) await _repository.ReplaceAsync(external);
             }
         }
