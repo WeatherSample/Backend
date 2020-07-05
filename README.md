@@ -1,6 +1,6 @@
 # Backend
 
-Backend of this Weather Sample project, includes only WebAPI service and some logic for interaction with database through linq2db and with interaction with 3rd patry weather provider service.
+Backend of this Weather Sample project, includes only WebAPI service and some logic for interaction with database through linq2db and with interaction with 3rd party weather provider service.
 
 Done:
 - Simple controller with alone get request method. (for fetching data from client)
