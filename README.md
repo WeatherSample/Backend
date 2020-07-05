@@ -12,6 +12,7 @@ Used:
 - Linq2db for working with database (first time tried use it this =)).
 - Newtonsoft JSON for parsing json.
 - RestSharp for making request to 3rd party service.
+- Beautiful weather provider: https://rapidapi.com/community/api/open-weather-map, but :( I have only 100 requests per day.
 
 As database used:
 - MySQL version 5.7.
