@@ -47,12 +47,14 @@ namespace WeatherSample.Services
         /// </returns>
         public async Task<WeatherInternalModel.City?> GetByIdAsync(string id)
         {
+            var cached = await _repository.GetByIdAsync(id);
+            if (cached != null) return _entityToInternal.Convert(cached);
             var data = await _external.FetchCity(id);
-            if (data == null) return null;
-            return _entityToInternal.Convert(
-                await _repository.GetByIdAsync(id) ??
-                await _repository.AddAsync(_externalToEntity.Convert(data))
-            );
+            return data != null
+                ? _entityToInternal.Convert(
+                    await _repository.AddAsync(_externalToEntity.Convert(data))
+                )
+                : null;
         }
     }
 }
